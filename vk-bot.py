@@ -15,7 +15,7 @@ import requests, aiohttp, asyncio, json, sys, logging, random
 ######ОПРЕДЕЛЕНИЕ ТОКЕНОВ и URL########
 VK_API_URL = 'https://api.vk.com/method/'
 
-GROUP_ID = #Ну тут понятно, id вашей группы
+GROUP_ID = #Ну тут понятно, id вашей группы(строка)
 
 GROUP_TOKEN = # Ключ доступа сообщества, иструкци к получению: https://vk.com/dev/access_token?f=2.%20%D0%9A%D0%BB%D1%8E%D1%87%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B0%20%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D0%B0
 ########### В ТОЙ ЖЕ ВКЛАДКЕ ЕСТЬ РАЗДЕЛ Long Poll API, в типах событий желательно указать то, что вам необходимо 
@@ -174,7 +174,7 @@ async def longpoll_loop():
 				for item in json_r['updates']: #item - элемент (одно конкретное) событие, для обработки каждного из которых будем вызывать функцию обработки в потоке
 
 
-					if json_r['updates'][0]['type'] == 'message_new':
+					if item['type'] == 'message_new':
 						# В данном случае обрабатываем событие message_new (входящее сообщение)
 
 						loop.create_task(entry_func(item)) #Точка входа 
